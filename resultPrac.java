@@ -7,9 +7,9 @@ import java.sql.Statement;
 
 import com.mysql.cj.protocol.Resultset;
 
-public class connect {
+public class resultPrac {
 
-	public connect() {
+	public resultPrac() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -23,18 +23,31 @@ public class connect {
 		String pass="MineMysql8767";
 		try {
 			Connection con=DriverManager.getConnection(url,user,pass);
-			Statement st=con.createStatement();
-//			String query="create table emp(eid  int(10),ename  varchar(20),eage int(10))";
-//			st.executeUpdate(query);
-			String fetchquery="select * from emp";
+			Statement st=con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+//			
+			String fetchquery="select * from student";
 			ResultSet  rs= st.executeQuery(fetchquery);
+			
+			
+			rs.absolute(1);
+			rs.relative(2);
+			
+			rs.updateInt(1, 60);
+			rs.updateRow();
 			while(rs.next())
 			{
-				int id= rs.getInt("eid");
-				String name=rs.getString("ename");
-				int age= rs.getInt("eage");
-				System.out.println(id+" "+name+" "+age);
+				int id= rs.getInt(1);
+				String name=rs.getString("name");
+				System.out.println(id+" "+name);
 			}
+//			rs.last();
+//			
+//			while(rs.previous())
+//			{
+//				int id= rs.getInt(1);
+//				String name=rs.getString("name");
+//				System.out.println(id+" "+name);
+//			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -44,7 +57,7 @@ public class connect {
 		}
 
 	public static void main(String[] args) {
-		connect ld= new  connect();
+		resultPrac ld= new  resultPrac();
 	}
 
 }

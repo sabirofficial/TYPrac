@@ -4,11 +4,12 @@ public class loaddriver {
 
 	public loaddriver() {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
+		
 		
 		System.out.print("driver Loaded");	
 		

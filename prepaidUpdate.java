@@ -1,15 +1,15 @@
 package com.JDBC;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import com.mysql.cj.protocol.Resultset;
 
-public class connect {
+public class prepaidUpdate {
 
-	public connect() {
+	public prepaidUpdate() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -24,17 +24,16 @@ public class connect {
 		try {
 			Connection con=DriverManager.getConnection(url,user,pass);
 			Statement st=con.createStatement();
-//			String query="create table emp(eid  int(10),ename  varchar(20),eage int(10))";
-//			st.executeUpdate(query);
-			String fetchquery="select * from emp";
-			ResultSet  rs= st.executeQuery(fetchquery);
-			while(rs.next())
-			{
-				int id= rs.getInt("eid");
-				String name=rs.getString("ename");
-				int age= rs.getInt("eage");
-				System.out.println(id+" "+name+" "+age);
-			}
+//			
+			String query="update  emp set eid=? where eid=?";
+			PreparedStatement  pst= con.prepareStatement(query);
+			pst.setInt(1, 2000);
+			pst.setInt(2, 1000);
+			
+			int status=pst.executeUpdate();
+			
+			
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -44,7 +43,7 @@ public class connect {
 		}
 
 	public static void main(String[] args) {
-		connect ld= new  connect();
+		prepaidUpdate ld= new  prepaidUpdate();
 	}
 
 }
