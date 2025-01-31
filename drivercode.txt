@@ -1,0 +1,30 @@
+
+try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		System.out.print("driver Loaded");
+		String url="jdbc:mysql://localhost:3306/myDB";
+		String user="root";
+		String pass="MineMysql8767";
+		
+		try {
+			Connection con=DriverManager.getConnection(url,user,pass);
+			String query="insert into getdataservlet (id,name,age) values(?,?,?)";
+			
+			PreparedStatement  pst=con.prepareStatement(query);
+			
+			pst.setInt(1,id);
+			pst.setString(2,name);
+			pst.setInt(3, age);
+			pst.executeUpdate();
+			
+			out.print("Data added Successfully!!!!!👍👍");
+			
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
